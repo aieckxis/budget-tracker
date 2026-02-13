@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Pinoy Budget Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>💰 My Budget Tracker</h2>
+        
+        <div class="balance-container">
+            <h4>Your Balance</h4>
+            <h1 id="balance">₱0.00</h1>
+        </div>
+
+        <div class="form-container">
+            <h3>Add New Transaction</h3>
+            <form id="transaction-form">
+                <input type="text" id="text" placeholder="Ano ang binili mo?" required />
+                <input type="number" id="amount" placeholder="Magkano? (Negative if gastos)" required />
+                <button class="btn">Add Transaction</button>
+            </form>
+        </div>
+
+        <h3>History</h3>
+        <ul id="list" class="list">
+            </ul>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

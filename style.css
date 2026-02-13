@@ -1,0 +1,60 @@
+:root {
+  --primary: #2ecc71;
+  --danger: #e74c3c;
+}
+
+body {
+  background-color: #f4f4f4;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+}
+
+.container {
+  width: 350px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+h2 { text-align: center; }
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box; /* Para hindi lumampas ang input */
+}
+
+.btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #9c27b0;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.list li {
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  color: #333;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  margin: 10px 0;
+  border-right: 5px solid #bbb;
+}
+
+.list li.plus { border-right-color: var(--primary); }
+.list li.minus { border-right-color: var(--danger); }
