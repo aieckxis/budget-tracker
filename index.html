@@ -11,22 +11,27 @@
         <h2>💰 My Budget Tracker</h2>
         
         <div class="balance-container">
-            <h4>Your Balance</h4>
-            <h1 id="balance">₱0.00</h1>
+            <h4>Your Current Balance</h4>
+            <input type="number" id="balance" class="balance-input" step="0.01">
         </div>
 
         <div class="form-container">
             <h3>Add New Transaction</h3>
             <form id="transaction-form">
-                <input type="text" id="text" placeholder="Ano ang binili mo?" required />
-                <input type="number" id="amount" placeholder="Magkano? (Negative if gastos)" required />
+                <input type="text" id="text" placeholder="Ano ang binili/kita mo?" required />
+                
+                <select id="type" class="type-select">
+                    <option value="expense">Expense (Gastos)</option>
+                    <option value="income">Income (Kita)</option>
+                </select>
+
+                <input type="number" id="amount" placeholder="Magkano?" required />
                 <button class="btn">Add Transaction</button>
             </form>
         </div>
 
         <h3>History</h3>
-        <ul id="list" class="list">
-            </ul>
+        <ul id="list" class="list"></ul>
     </div>
 
     <script src="script.js"></script>

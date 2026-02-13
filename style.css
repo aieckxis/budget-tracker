@@ -1,6 +1,7 @@
 :root {
   --primary: #2ecc71;
   --danger: #e74c3c;
+  --accent: #9c27b0;
 }
 
 body {
@@ -12,48 +13,67 @@ body {
 }
 
 .container {
-  width: 350px;
+  width: 380px;
   background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
-h2 { text-align: center; }
+h2 { text-align: center; margin-bottom: 20px; }
 
-input {
+.balance-container { text-align: center; margin-bottom: 20px; }
+
+.balance-input {
+  background: transparent;
+  border: none;
+  border-bottom: 2px dashed var(--accent);
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
   width: 100%;
-  padding: 10px;
-  margin: 10px 0;
+  color: #333;
+  outline: none;
+  margin-top: 10px;
+}
+
+.balance-input:focus {
+  border-bottom: 2px solid var(--primary);
+}
+
+input, .type-select {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
   border: 1px solid #ddd;
-  border-radius: 5px;
-  box-sizing: border-box; /* Para hindi lumampas ang input */
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 16px;
 }
 
 .btn {
   width: 100%;
-  padding: 10px;
-  background-color: #9c27b0;
+  padding: 12px;
+  background-color: var(--accent);
   color: white;
   border: none;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: 0.3s;
 }
 
-.list {
-  list-style-type: none;
-  padding: 0;
-}
+.list { list-style-type: none; padding: 0; }
 
 .list li {
   background-color: #fff;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
-  color: #333;
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  padding: 12px;
   margin: 10px 0;
-  border-right: 5px solid #bbb;
+  border-right: 6px solid #bbb;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
 .list li.plus { border-right-color: var(--primary); }

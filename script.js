@@ -1,21 +1,27 @@
-const balance = document.getElementById('balance');
+const balanceDisplay = document.getElementById('balance');
 const list = document.getElementById('list');
 const form = document.getElementById('transaction-form');
 const text = document.getElementById('text');
 const amount = document.getElementById('amount');
+const type = document.getElementById('type');
 
-// Step 1: Kuhanin ang data sa LocalStorage (kung meron)
 const localStorageTransactions = JSON.parse(localStorage.getItem('transactions'));
 let transactions = localStorage.getItem('transactions') !== null ? localStorageTransactions : [];
 
-// Step 2: Add Transaction function
+let initialBalance = localStorage.getItem('startingBalance') !== null 
+    ? parseFloat(localStorage.getItem('startingBalance')) 
+    : 0;
+
 function addTransaction(e) {
   e.preventDefault();
 
+  const amt = +amount.value;
+  const finalAmount = type.value === 'expense' ? -Math.abs(amt) : Math.abs(amt);
+
   const transaction = {
-    id: Math.floor(Math.random() * 1000000),
+    id: Math.floor(Math.random() * 100000000),
     text: text.value,
-    amount: +amount.value // Ang '+' ay ginagawang number ang string
+    amount: finalAmount
   };
 
   transactions.push(transaction);
@@ -27,32 +33,36 @@ function addTransaction(e) {
   amount.value = '';
 }
 
-// Step 3: I-display sa Screen
 function addTransactionDOM(transaction) {
   const sign = transaction.amount < 0 ? '-' : '+';
   const item = document.createElement('li');
 
   item.classList.add(transaction.amount < 0 ? 'minus' : 'plus');
   item.innerHTML = `
-    ${transaction.text} <span>${sign}${Math.abs(transaction.amount)}</span>
+    ${transaction.text} <span>${sign}₱${Math.abs(transaction.amount).toFixed(2)}</span>
   `;
 
   list.appendChild(item);
 }
 
-// Step 4: I-update ang Total Balance
 function updateValues() {
   const amounts = transactions.map(t => t.amount);
-  const total = amounts.reduce((acc, item) => (acc += item), 0).toFixed(2);
-  balance.innerText = `₱${total}`;
+  const transactionTotal = amounts.reduce((acc, item) => (acc += item), 0);
+  const finalTotal = (initialBalance + transactionTotal).toFixed(2);
+  balanceDisplay.value = finalTotal;
 }
 
-// Step 5: I-save sa LocalStorage
 function updateLocalStorage() {
   localStorage.setItem('transactions', JSON.stringify(transactions));
 }
 
-// Initial Run
+balanceDisplay.addEventListener('change', (e) => {
+  const currentTotalTransactions = transactions.reduce((acc, t) => acc + t.amount, 0);
+  initialBalance = parseFloat(e.target.value) - currentTotalTransactions;
+  localStorage.setItem('startingBalance', initialBalance);
+  updateValues();
+});
+
 function init() {
   list.innerHTML = '';
   transactions.forEach(addTransactionDOM);
