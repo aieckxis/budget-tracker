@@ -22,9 +22,16 @@ body {
 
 h2 { text-align: center; margin-bottom: 20px; }
 
+/* chart styling */
+.chart-container {
+  margin-bottom: 20px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+}
+
 .balance-container { text-align: center; margin-bottom: 20px; }
 
-/* styling the editable balance field */
 .balance-input {
   background: transparent;
   border: none;
@@ -70,7 +77,7 @@ input, .type-select {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px;
+  padding: 12px 12px 12px 45px; /* space for the delete button */
   margin: 10px 0;
   border-right: 6px solid #bbb;
   border-radius: 5px;
@@ -81,7 +88,7 @@ input, .type-select {
 .list li.plus { border-right-color: var(--primary); }
 .list li.minus { border-right-color: var(--danger); }
 
-/* hidden delete button that appears on hover */
+/* delete button inside the list item */
 .delete-btn {
   cursor: pointer;
   background-color: var(--danger);
@@ -91,42 +98,13 @@ input, .type-select {
   padding: 4px 10px;
   position: absolute;
   top: 50%;
-  left: 10px; /* changed from -35px to 10px to move it inside */
+  left: 10px;
   transform: translateY(-50%);
   opacity: 0;
   transition: opacity 0.3s ease;
   border-radius: 4px;
-  z-index: 1;
-}
-
-/* add padding to the list item so the text doesn't hit the button */
-.list li {
-  background-color: #fff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 12px 12px 45px; /* added 45px padding on the left */
-  margin: 10px 0;
-  border-right: 6px solid #bbb;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-  position: relative;
 }
 
 .list li:hover .delete-btn {
   opacity: 1;
-}
-
-/* sizing the chart container */
-.chart-container {
-  margin: 20px 0;
-  height: 200px;
-  display: flex;
-  justify-content: center;
-}
-
-/* ensure the canvas doesn't grow too large */
-#budgetChart {
-  max-width: 100%;
-  max-height: 100%;
 }

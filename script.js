@@ -6,16 +6,18 @@ const amount = document.getElementById('amount');
 const type = document.getElementById('type');
 const category = document.getElementById('category');
 
+// load transactions from local storage
 const localStorageTransactions = JSON.parse(localStorage.getItem('transactions'));
 let transactions = localStorage.getItem('transactions') !== null ? localStorageTransactions : [];
 
+// load starting balance
 let initialBalance = localStorage.getItem('startingBalance') !== null 
     ? parseFloat(localStorage.getItem('startingBalance')) 
     : 0;
 
-// chart variable
 let myChart;
 
+// add new entry
 function addTransaction(e) {
   e.preventDefault();
 
@@ -26,19 +28,20 @@ function addTransaction(e) {
     id: Math.floor(Math.random() * 100000000),
     text: text.value,
     amount: finalAmount,
-    category: category.value // save category for chart logic
+    category: category.value
   };
 
   transactions.push(transaction);
   addTransactionDOM(transaction);
   updateValues();
   updateLocalStorage();
-  updateChart(); // refresh chart
+  updateChart();
 
   text.value = '';
   amount.value = '';
 }
 
+// display item on screen
 function addTransactionDOM(transaction) {
   const sign = transaction.amount < 0 ? '-' : '+';
   const item = document.createElement('li');
@@ -52,14 +55,15 @@ function addTransactionDOM(transaction) {
   list.appendChild(item);
 }
 
+// delete logic
 function removeTransaction(id) {
   transactions = transactions.filter(transaction => transaction.id !== id);
   updateLocalStorage();
-  updateChart(); // refresh chart after delete
+  updateChart();
   init();
 }
 
-// logic to update the pie chart data
+// data visualization logic
 function updateChart() {
   const expenses = transactions.filter(t => t.amount < 0);
   const needsTotal = Math.abs(expenses.filter(t => t.category === 'needs').reduce((acc, t) => acc + t.amount, 0));
@@ -67,7 +71,6 @@ function updateChart() {
 
   const ctx = document.getElementById('budgetChart').getContext('2d');
 
-  // destroy old chart before creating new one
   if (myChart) {
     myChart.destroy();
   }
@@ -91,6 +94,7 @@ function updateChart() {
   });
 }
 
+// sync numbers and balance
 function updateValues() {
   const amounts = transactions.map(t => t.amount);
   const transactionTotal = amounts.reduce((acc, item) => (acc += item), 0);
@@ -102,6 +106,7 @@ function updateLocalStorage() {
   localStorage.setItem('transactions', JSON.stringify(transactions));
 }
 
+// update when balance input changes
 balanceDisplay.addEventListener('change', (e) => {
   const currentTotalTransactions = transactions.reduce((acc, t) => acc + t.amount, 0);
   initialBalance = parseFloat(e.target.value) - currentTotalTransactions;
@@ -113,7 +118,7 @@ function init() {
   list.innerHTML = '';
   transactions.forEach(addTransactionDOM);
   updateValues();
-  updateChart(); // load chart on startup
+  updateChart();
 }
 
 form.addEventListener('submit', addTransaction);
