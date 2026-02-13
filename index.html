@@ -3,34 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Budget Tracker</title>
+    <title>budget tracker</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h2>💰 My Budget Tracker</h2>
+        <h2>💰 budget tracker</h2>
         
         <div class="balance-container">
-            <h4>Your Current Balance</h4>
+            <h4>your current balance</h4>
             <input type="number" id="balance" class="balance-input" step="0.01">
         </div>
 
         <div class="form-container">
-            <h3>Add New Transaction</h3>
+            <h3>add new transaction</h3>
             <form id="transaction-form">
-                <input type="text" id="text" placeholder="What did you buy/earn?" required />
+                <input type="text" id="text" placeholder="description (e.g. coffee)" required />
                 
                 <select id="type" class="type-select">
-                    <option value="expense">Expense</option>
-                    <option value="income">Income</option>
+                    <option value="expense">expense</option>
+                    <option value="income">income</option>
                 </select>
 
-                <input type="number" id="amount" placeholder="Amount" required />
-                <button class="btn">Add Transaction</button>
+                <input type="number" id="amount" placeholder="amount" required />
+                <button class="btn">add transaction</button>
             </form>
         </div>
 
-        <h3>History</h3>
+        <h3>history</h3>
         <ul id="list" class="list"></ul>
     </div>
 

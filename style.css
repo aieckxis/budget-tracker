@@ -24,6 +24,7 @@ h2 { text-align: center; margin-bottom: 20px; }
 
 .balance-container { text-align: center; margin-bottom: 20px; }
 
+/* styling the editable balance field */
 .balance-input {
   background: transparent;
   border: none;
@@ -60,7 +61,6 @@ input, .type-select {
   cursor: pointer;
   border-radius: 8px;
   font-weight: bold;
-  transition: 0.3s;
 }
 
 .list { list-style-type: none; padding: 0; }
@@ -69,12 +69,35 @@ input, .type-select {
   background-color: #fff;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 12px;
   margin: 10px 0;
   border-right: 6px solid #bbb;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  position: relative;
 }
 
 .list li.plus { border-right-color: var(--primary); }
 .list li.minus { border-right-color: var(--danger); }
+
+/* hidden delete button that appears on hover */
+.delete-btn {
+  cursor: pointer;
+  background-color: var(--danger);
+  border: none;
+  color: #fff;
+  font-size: 12px;
+  padding: 2px 8px;
+  position: absolute;
+  top: 50%;
+  left: -35px;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 3px;
+}
+
+.list li:hover .delete-btn {
+  opacity: 1;
+}
