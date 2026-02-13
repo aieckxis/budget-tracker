@@ -5,11 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>budget tracker</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="container">
         <h2>💰 budget tracker</h2>
         
+        <div class="chart-container">
+            <canvas id="budgetChart"></canvas>
+        </div>
+
         <div class="balance-container">
             <h4>your current balance</h4>
             <input type="number" id="balance" class="balance-input" step="0.01">
@@ -18,11 +23,16 @@
         <div class="form-container">
             <h3>add new transaction</h3>
             <form id="transaction-form">
-                <input type="text" id="text" placeholder="description (e.g. coffee)" required />
+                <input type="text" id="text" placeholder="description" required />
                 
                 <select id="type" class="type-select">
                     <option value="expense">expense</option>
                     <option value="income">income</option>
+                </select>
+
+                <select id="category" class="type-select">
+                    <option value="needs">needs (bills, food, rent)</option>
+                    <option value="wants">wants (hobbies, treats)</option>
                 </select>
 
                 <input type="number" id="amount" placeholder="amount" required />
@@ -33,7 +43,6 @@
         <h3>history</h3>
         <ul id="list" class="list"></ul>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
