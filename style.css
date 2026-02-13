@@ -22,16 +22,18 @@ body {
 
 h2 { text-align: center; margin-bottom: 20px; }
 
-/* chart styling */
+/* fixed height to ensure chart is visible */
 .chart-container {
   margin-bottom: 20px;
-  height: 200px;
+  height: 250px; 
+  width: 100%;
   display: flex;
   justify-content: center;
 }
 
 .balance-container { text-align: center; margin-bottom: 20px; }
 
+/* styling for the editable balance field */
 .balance-input {
   background: transparent;
   border: none;
@@ -77,7 +79,7 @@ input, .type-select {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 12px 12px 45px; /* space for the delete button */
+  padding: 12px 12px 12px 45px; 
   margin: 10px 0;
   border-right: 6px solid #bbb;
   border-radius: 5px;
@@ -88,7 +90,7 @@ input, .type-select {
 .list li.plus { border-right-color: var(--primary); }
 .list li.minus { border-right-color: var(--danger); }
 
-/* delete button inside the list item */
+/* delete button placed inside the list item */
 .delete-btn {
   cursor: pointer;
   background-color: var(--danger);

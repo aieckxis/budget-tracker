@@ -6,22 +6,23 @@ const amount = document.getElementById('amount');
 const type = document.getElementById('type');
 const category = document.getElementById('category');
 
-// load transactions from local storage
+// retrieve transactions from localstorage
 const localStorageTransactions = JSON.parse(localStorage.getItem('transactions'));
 let transactions = localStorage.getItem('transactions') !== null ? localStorageTransactions : [];
 
-// load starting balance
+// retrieve initial balance from localstorage
 let initialBalance = localStorage.getItem('startingBalance') !== null 
     ? parseFloat(localStorage.getItem('startingBalance')) 
     : 0;
 
 let myChart;
 
-// add new entry
+// add a new entry to the tracker
 function addTransaction(e) {
   e.preventDefault();
 
   const amt = +amount.value;
+  // force negative value if expense is selected
   const finalAmount = type.value === 'expense' ? -Math.abs(amt) : Math.abs(amt);
 
   const transaction = {
@@ -41,7 +42,7 @@ function addTransaction(e) {
   amount.value = '';
 }
 
-// display item on screen
+// render the transaction in the history list
 function addTransactionDOM(transaction) {
   const sign = transaction.amount < 0 ? '-' : '+';
   const item = document.createElement('li');
@@ -49,13 +50,13 @@ function addTransactionDOM(transaction) {
   item.classList.add(transaction.amount < 0 ? 'minus' : 'plus');
   item.innerHTML = `
     <button class="delete-btn" onclick="removeTransaction(${transaction.id})">x</button>
-    ${transaction.text} <span>${sign}$${Math.abs(transaction.amount).toFixed(2)}</span>
+    ${transaction.text} <span>${sign}₱${Math.abs(transaction.amount).toFixed(2)}</span>
   `;
 
   list.appendChild(item);
 }
 
-// delete logic
+// remove transaction by filtering out the id
 function removeTransaction(id) {
   transactions = transactions.filter(transaction => transaction.id !== id);
   updateLocalStorage();
@@ -63,7 +64,7 @@ function removeTransaction(id) {
   init();
 }
 
-// data visualization logic
+// update the pie chart visualization
 function updateChart() {
   const expenses = transactions.filter(t => t.amount < 0);
   const needsTotal = Math.abs(expenses.filter(t => t.category === 'needs').reduce((acc, t) => acc + t.amount, 0));
@@ -71,6 +72,7 @@ function updateChart() {
 
   const ctx = document.getElementById('budgetChart').getContext('2d');
 
+  // clear old chart instance to prevent memory leaks
   if (myChart) {
     myChart.destroy();
   }
@@ -78,7 +80,7 @@ function updateChart() {
   myChart = new Chart(ctx, {
     type: 'pie',
     data: {
-      labels: ['Needs', 'Wants'],
+      labels: ['needs', 'wants'],
       datasets: [{
         data: [needsTotal, wantsTotal],
         backgroundColor: ['#2ecc71', '#9c27b0'],
@@ -87,6 +89,7 @@ function updateChart() {
     },
     options: {
       responsive: true,
+      maintainAspectRatio: false,
       plugins: {
         legend: { position: 'bottom' }
       }
@@ -94,7 +97,7 @@ function updateChart() {
   });
 }
 
-// sync numbers and balance
+// calculate and update all financial values
 function updateValues() {
   const amounts = transactions.map(t => t.amount);
   const transactionTotal = amounts.reduce((acc, item) => (acc += item), 0);
@@ -102,11 +105,12 @@ function updateValues() {
   balanceDisplay.value = finalTotal;
 }
 
+// save the transactions array to localstorage
 function updateLocalStorage() {
   localStorage.setItem('transactions', JSON.stringify(transactions));
 }
 
-// update when balance input changes
+// listen for manual changes to the balance input
 balanceDisplay.addEventListener('change', (e) => {
   const currentTotalTransactions = transactions.reduce((acc, t) => acc + t.amount, 0);
   initialBalance = parseFloat(e.target.value) - currentTotalTransactions;
@@ -114,6 +118,7 @@ balanceDisplay.addEventListener('change', (e) => {
   updateValues();
 });
 
+// boot up the application
 function init() {
   list.innerHTML = '';
   transactions.forEach(addTransactionDOM);
