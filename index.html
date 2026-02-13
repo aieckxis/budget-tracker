@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Pinoy Budget Tracker</title>
+    <title>My Budget Tracker</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -18,14 +18,14 @@
         <div class="form-container">
             <h3>Add New Transaction</h3>
             <form id="transaction-form">
-                <input type="text" id="text" placeholder="Ano ang binili/kita mo?" required />
+                <input type="text" id="text" placeholder="What did you buy/earn?" required />
                 
                 <select id="type" class="type-select">
-                    <option value="expense">Expense (Gastos)</option>
-                    <option value="income">Income (Kita)</option>
+                    <option value="expense">Expense</option>
+                    <option value="income">Income</option>
                 </select>
 
-                <input type="number" id="amount" placeholder="Magkano?" required />
+                <input type="number" id="amount" placeholder="Amount" required />
                 <button class="btn">Add Transaction</button>
             </form>
         </div>
