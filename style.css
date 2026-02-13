@@ -88,14 +88,29 @@ input, .type-select {
   border: none;
   color: #fff;
   font-size: 12px;
-  padding: 2px 8px;
+  padding: 4px 10px;
   position: absolute;
   top: 50%;
-  left: -35px;
+  left: 10px; /* changed from -35px to 10px to move it inside */
   transform: translateY(-50%);
   opacity: 0;
   transition: opacity 0.3s ease;
-  border-radius: 3px;
+  border-radius: 4px;
+  z-index: 1;
+}
+
+/* add padding to the list item so the text doesn't hit the button */
+.list li {
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 12px 12px 45px; /* added 45px padding on the left */
+  margin: 10px 0;
+  border-right: 6px solid #bbb;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  position: relative;
 }
 
 .list li:hover .delete-btn {
