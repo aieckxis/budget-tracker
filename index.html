@@ -3,44 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>budget tracker</title>
+    <title>budget tracker | pro version</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="container">
-        <h2>💰 budget tracker</h2>
-        
+        <header>
+            <h2>hello, Aleckxis Kate! 👋</h2> <p>here is your financial overview</p>
+        </header>
+
         <div class="chart-container">
             <canvas id="budgetChart"></canvas>
         </div>
 
+        <div class="inc-exp-container">
+            <div>
+                <h4>income</h4>
+                <p id="money-plus" class="money plus">+$0.00</p>
+            </div>
+            <div>
+                <h4>expenses</h4>
+                <p id="money-minus" class="money minus">-$0.00</p>
+            </div>
+        </div>
+
         <div class="balance-container">
-            <h4>your current balance</h4>
-            <input type="number" id="balance" class="balance-input" step="0.01">
+            <h4>total balance</h4>
+            <input type="number" id="balance" class="balance-pro" step="0.01">
         </div>
 
         <div class="form-container">
-            <h3>add new transaction</h3>
+            <h3>add transaction</h3>
             <form id="transaction-form">
-                <input type="text" id="text" placeholder="description" required />
+                <input type="text" id="text" placeholder="what was it for?" required />
                 
-                <select id="type" class="type-select">
-                    <option value="expense">expense</option>
-                    <option value="income">income</option>
-                </select>
+                <div class="select-group">
+                    <select id="type">
+                        <option value="expense">expense</option>
+                        <option value="income">income</option>
+                    </select>
+                    <select id="category">
+                        <option value="needs">needs</option>
+                        <option value="wants">wants</option>
+                    </select>
+                </div>
 
-                <select id="category" class="type-select">
-                    <option value="needs">needs</option>
-                    <option value="wants">wants</option>
-                </select>
-
-                <input type="number" id="amount" placeholder="amount" required />
-                <button class="btn">add transaction</button>
+                <input type="number" id="amount" placeholder="0.00" required />
+                <button class="btn">add to ledger</button>
             </form>
         </div>
 
-        <h3>history</h3>
+        <h3>recent activity</h3>
         <ul id="list" class="list"></ul>
     </div>
     <script src="script.js"></script>
