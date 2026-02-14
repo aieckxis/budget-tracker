@@ -38,23 +38,22 @@ function updateChart() {
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
 
-    // 1. Destroy existing chart instance
+    // 1. Siguradong burado ang lumang chart instance
     if (myChart) {
         myChart.destroy();
     }
 
-    // 2. HARD EXIT
+    // 2. HARD RESET
     if (expenses.length === 0) {
-        // Clear the actual drawing area pixels
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         return; 
     }
 
-    // 3. Calculate data if expenses exist
+    // 3. Calculate data 
     const needs = Math.abs(expenses.filter(t => t.category === 'needs').reduce((acc, t) => acc + t.amount, 0));
     const wants = Math.abs(expenses.filter(t => t.category === 'wants').reduce((acc, t) => acc + t.amount, 0));
 
-    // 4. Draw only if there is actual data
+    // 4. Draw only if there is real data > 0
     myChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
