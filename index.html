@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>budget tracker | pro</title>
+    <title>Budget Tracker | Pro Version</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -25,11 +25,11 @@
         <div class="inc-exp-container">
             <div class="card">
                 <h4>income</h4>
-                <p id="money-plus" class="money plus">+$0.00</p>
+                <p id="money-plus" class="money plus">+₱0.00</p>
             </div>
             <div class="card">
                 <h4>expenses</h4>
-                <p id="money-minus" class="money minus">-$0.00</p>
+                <p id="money-minus" class="money minus">-₱0.00</p>
             </div>
         </div>
 
@@ -41,23 +41,28 @@
         <div class="form-container">
             <h3>add transaction</h3>
             <form id="transaction-form">
-                <input type="text" id="text" placeholder="description" required />
+                <input type="text" id="text" placeholder="what was it for?" required />
                 <div class="select-group">
                     <select id="type">
                         <option value="expense">expense</option>
                         <option value="income">income</option>
                     </select>
-                    <select id="category">
-                        <option value="needs">needs</option>
-                        <option value="wants">wants</option>
-                    </select>
+                    <div id="category-wrapper">
+                        <select id="category">
+                            <option value="needs">needs</option>
+                            <option value="wants">wants</option>
+                        </select>
+                    </div>
                 </div>
                 <input type="number" id="amount" placeholder="0.00" required />
                 <button class="btn">add to ledger</button>
             </form>
         </div>
 
-        <h3>recent activity</h3>
+        <div class="history-header">
+            <h3>recent activity</h3>
+            <button id="clear-btn" class="clear-btn">🗑️ clear all</button>
+        </div>
         <ul id="list" class="list"></ul>
     </div>
     <script src="script.js"></script>

@@ -11,7 +11,7 @@
 }
 
 [data-theme="light"] {
-  --bg-color: #fce4ec;
+  --bg-color: #fce4ec; /* Cute pink theme */
   --card-bg: #ffffff;
   --text-main: #4a148c;
   --border: #f8bbd0;
@@ -41,15 +41,13 @@ body {
   position: relative;
   height: 220px;
   width: 100%;
-  margin-bottom: 20px;
 }
 
-/* Cute Buttons */
 .theme-btn, .clear-btn, .btn {
   cursor: pointer;
   border: none;
   font-weight: bold;
-  transition: 0.3s;
+  transition: 0.3s ease;
 }
 
 .theme-btn {
@@ -76,7 +74,6 @@ body {
   color: white;
   border-radius: 15px;
   margin-top: 10px;
-  font-size: 16px;
 }
 
 .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(156, 39, 176, 0.4); }
@@ -95,8 +92,6 @@ body {
 
 .inc-exp-container { display: flex; gap: 10px; margin: 20px 0; }
 .card { flex: 1; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px; text-align: center; }
-
-.history-header { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; }
 
 .list li {
   background: var(--list-item);
