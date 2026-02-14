@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>budget tracker | aleckxis kate</title>
+    <title>budget tracker | pro</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -41,8 +41,7 @@
         <div class="form-container">
             <h3>add transaction</h3>
             <form id="transaction-form">
-                <input type="text" id="text" placeholder="what was it for?" required />
-                
+                <input type="text" id="text" placeholder="description" required />
                 <div class="select-group">
                     <select id="type">
                         <option value="expense">expense</option>
@@ -53,7 +52,6 @@
                         <option value="wants">wants</option>
                     </select>
                 </div>
-
                 <input type="number" id="amount" placeholder="0.00" required />
                 <button class="btn">add to ledger</button>
             </form>

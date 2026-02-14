@@ -20,31 +20,37 @@
 body {
   background-color: var(--bg-color);
   color: var(--text-main);
-  font-family: 'Inter', -apple-system, sans-serif;
+  font-family: 'Inter', sans-serif;
   display: flex;
   justify-content: center;
   padding: 20px;
-  transition: all 0.3s ease;
+  transition: 0.3s;
 }
 
 .container {
   width: 400px;
   background: var(--card-bg);
-  padding: 30px;
+  padding: 25px;
   border-radius: 24px;
   border: 1px solid var(--border);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+
+/* ensure the chart has space to render */
+.chart-container {
+  position: relative;
+  margin: auto;
+  height: 250px;
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 .theme-btn {
   background: transparent;
   border: 1px solid var(--accent);
   color: var(--accent);
-  padding: 6px 12px;
+  padding: 5px 10px;
   border-radius: 20px;
   cursor: pointer;
-  font-size: 12px;
-  margin-bottom: 15px;
 }
 
 .balance-pro {
@@ -52,35 +58,23 @@ body {
   border: none;
   border-bottom: 2px solid var(--accent);
   color: var(--text-main);
-  font-size: 40px;
+  font-size: 32px;
   font-weight: 800;
   text-align: center;
   width: 100%;
   outline: none;
 }
 
-.inc-exp-container {
-  display: flex;
-  gap: 15px;
-  margin: 20px 0;
-}
-
-.card {
-  flex: 1;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 15px;
-  border-radius: 16px;
-  text-align: center;
-}
-
+.inc-exp-container { display: flex; gap: 10px; margin: 20px 0; }
+.card { flex: 1; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 12px; text-align: center; }
 .money.plus { color: var(--green); }
 .money.minus { color: var(--red); }
 
 .list li {
   background: var(--list-item);
-  padding: 15px 15px 15px 45px;
-  border-radius: 12px;
-  margin-bottom: 10px;
+  padding: 12px 12px 12px 40px;
+  border-radius: 10px;
+  margin-bottom: 8px;
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -100,28 +94,9 @@ body {
   padding: 2px 8px;
   cursor: pointer;
   opacity: 0;
-  transition: opacity 0.2s;
 }
 
 .list li:hover .delete-btn { opacity: 1; }
 
-.btn {
-  width: 100%;
-  padding: 14px;
-  background: var(--accent);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-input, select {
-  background: rgba(0,0,0,0.2);
-  border: 1px solid var(--border);
-  color: var(--text-main);
-  padding: 12px;
-  border-radius: 8px;
-  margin: 5px 0;
-  width: 100%;
-}
+.btn { width: 100%; padding: 12px; background: var(--accent); color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; }
+input, select { background: rgba(0,0,0,0.1); border: 1px solid var(--border); color: var(--text-main); padding: 10px; border-radius: 8px; margin: 5px 0; width: 100%; box-sizing: border-box; }
