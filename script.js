@@ -33,16 +33,28 @@ typeSelect.addEventListener('change', () => {
 // 3. Robust Chart Logic (Hard Reset)
 function updateChart() {
     const expenses = transactions.filter(t => t.amount < 0);
-    let needs = 0, wants = 0;
+    
+    const canvas = document.getElementById('budgetChart');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
 
-    if (expenses.length > 0) {
-        needs = Math.abs(expenses.filter(t => t.category === 'needs').reduce((acc, t) => acc + t.amount, 0));
-        wants = Math.abs(expenses.filter(t => t.category === 'wants').reduce((acc, t) => acc + t.amount, 0));
+    // 1. Destroy existing chart instance
+    if (myChart) {
+        myChart.destroy();
     }
 
-    const ctx = document.getElementById('budgetChart').getContext('2d');
-    if (myChart) myChart.destroy();
+    // 2. HARD EXIT
+    if (expenses.length === 0) {
+        // Clear the actual drawing area pixels
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        return; 
+    }
 
+    // 3. Calculate data if expenses exist
+    const needs = Math.abs(expenses.filter(t => t.category === 'needs').reduce((acc, t) => acc + t.amount, 0));
+    const wants = Math.abs(expenses.filter(t => t.category === 'wants').reduce((acc, t) => acc + t.amount, 0));
+
+    // 4. Draw only if there is actual data
     myChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
@@ -57,8 +69,7 @@ function updateChart() {
             maintainAspectRatio: false,
             cutout: '80%', 
             plugins: { 
-                legend: { display: false },
-                tooltip: { enabled: (needs > 0 || wants > 0) }
+                legend: { display: false }
             } 
         }
     });
