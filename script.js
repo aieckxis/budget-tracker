@@ -4,29 +4,30 @@ const moneyMinus = document.getElementById('money-minus');
 const list = document.getElementById('list');
 const form = document.getElementById('transaction-form');
 const themeToggle = document.getElementById('theme-toggle');
+const typeSelect = document.getElementById('type');
+const categoryWrapper = document.getElementById('category-wrapper');
 
 let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
 let initialBalance = parseFloat(localStorage.getItem('startingBalance')) || 0;
 let myChart;
 
-// theme logic
-if (localStorage.getItem('theme') === 'light') {
-    document.documentElement.setAttribute('data-theme', 'light');
-    themeToggle.innerText = '☀️ light mode';
-}
+// Theme Initialization
+const savedTheme = localStorage.getItem('theme') || 'dark';
+document.documentElement.setAttribute('data-theme', savedTheme);
+themeToggle.innerText = savedTheme === 'light' ? '☀️ light mode' : '🌙 dark mode';
 
 themeToggle.addEventListener('click', () => {
-    let theme = document.documentElement.getAttribute('data-theme');
-    if (theme === 'light') {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        localStorage.setItem('theme', 'dark');
-        themeToggle.innerText = '🌙 dark mode';
-    } else {
-        document.documentElement.setAttribute('data-theme', 'light');
-        localStorage.setItem('theme', 'light');
-        themeToggle.innerText = '☀️ light mode';
-    }
+    const current = document.documentElement.getAttribute('data-theme');
+    const target = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', target);
+    localStorage.setItem('theme', target);
+    themeToggle.innerText = target === 'light' ? '☀️ light mode' : '🌙 dark mode';
     updateChart();
+});
+
+// UX: Hide Category for Income
+typeSelect.addEventListener('change', () => {
+    categoryWrapper.style.display = typeSelect.value === 'income' ? 'none' : 'block';
 });
 
 function updateValues() {
@@ -45,10 +46,7 @@ function updateChart() {
     const needs = Math.abs(expenses.filter(t => t.category === 'needs').reduce((acc, t) => acc + t.amount, 0));
     const wants = Math.abs(expenses.filter(t => t.category === 'wants').reduce((acc, t) => acc + t.amount, 0));
 
-    const canvas = document.getElementById('budgetChart');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    
+    const ctx = document.getElementById('budgetChart').getContext('2d');
     if (myChart) myChart.destroy();
 
     myChart = new Chart(ctx, {
@@ -56,10 +54,9 @@ function updateChart() {
         data: {
             labels: ['needs', 'wants'],
             datasets: [{
-                data: [needs || 1, wants || 0.1], 
+                data: [needs || 1, wants || 0.1],
                 backgroundColor: ['#2ecc71', '#9c27b0'],
-                borderColor: getComputedStyle(document.documentElement).getPropertyValue('--card-bg').trim(),
-                borderWidth: 5
+                borderWidth: 0
             }]
         },
         options: { 
@@ -70,63 +67,48 @@ function updateChart() {
     });
 }
 
-function addTransaction(e) {
+form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const text = document.getElementById('text');
-    const amount = document.getElementById('amount');
-    const type = document.getElementById('type');
-    const category = document.getElementById('category');
-
+    const type = typeSelect.value;
     const transaction = {
         id: Math.floor(Math.random() * 100000000),
-        text: text.value,
-        amount: type.value === 'expense' ? -Math.abs(+amount.value) : +amount.value,
-        category: category.value
+        text: document.getElementById('text').value,
+        amount: type === 'expense' ? -Math.abs(+document.getElementById('amount').value) : +document.getElementById('amount').value,
+        category: type === 'income' ? 'income' : document.getElementById('category').value
     };
-
     transactions.push(transaction);
-    addTransactionDOM(transaction);
-    updateValues();
-    updateLocalStorage();
-    updateChart();
-
-    text.value = '';
-    amount.value = '';
-}
-
-function addTransactionDOM(t) {
-    const item = document.createElement('li');
-    item.classList.add(t.amount < 0 ? 'minus' : 'plus');
-    item.innerHTML = `
-        <button class="delete-btn" onclick="removeTransaction(${t.id})">x</button>
-        ${t.text} <span>${t.amount < 0 ? '-' : '+'}₱${Math.abs(t.amount).toFixed(2)}</span>
-    `;
-    list.appendChild(item);
-}
+    localStorage.setItem('transactions', JSON.stringify(transactions));
+    init();
+    form.reset();
+    categoryWrapper.style.display = 'block'; // Reset UX visibility
+});
 
 function removeTransaction(id) {
     transactions = transactions.filter(t => t.id !== id);
-    updateLocalStorage();
+    localStorage.setItem('transactions', JSON.stringify(transactions));
     init();
 }
 
-function updateLocalStorage() {
-    localStorage.setItem('transactions', JSON.stringify(transactions));
-}
-
-balanceDisplay.addEventListener('change', (e) => {
-    const currentTotal = transactions.reduce((acc, t) => acc + t.amount, 0);
-    initialBalance = parseFloat(e.target.value) - currentTotal;
-    localStorage.setItem('startingBalance', initialBalance);
-    updateValues();
+document.getElementById('clear-btn').addEventListener('click', () => {
+    if(confirm("Clear all transactions?")) {
+        transactions = [];
+        localStorage.setItem('transactions', JSON.stringify(transactions));
+        init();
+    }
 });
 
 function init() {
     list.innerHTML = '';
-    transactions.forEach(addTransactionDOM);
+    transactions.forEach(t => {
+        const item = document.createElement('li');
+        item.innerHTML = `
+            <button class="delete-btn" onclick="removeTransaction(${t.id})">x</button>
+            ${t.text} <span>₱${Math.abs(t.amount).toFixed(2)}</span>
+        `;
+        list.appendChild(item);
+    });
     updateValues();
     updateChart();
 }
 
-form.addEventListener('submit', addTransaction);
 init();

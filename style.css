@@ -4,17 +4,18 @@
   --text-main: #f0f6fc;
   --border: #30363d;
   --accent: #9c27b0;
+  --accent-hover: #b347c9;
   --list-item: #21262d;
   --green: #2ecc71;
   --red: #e74c3c;
 }
 
 [data-theme="light"] {
-  --bg-color: #f4f4f4;
+  --bg-color: #fce4ec;
   --card-bg: #ffffff;
-  --text-main: #333333;
-  --border: #dddddd;
-  --list-item: #f9f9f9;
+  --text-main: #4a148c;
+  --border: #f8bbd0;
+  --list-item: #fff1f6;
 }
 
 body {
@@ -24,34 +25,61 @@ body {
   display: flex;
   justify-content: center;
   padding: 20px;
-  transition: 0.3s;
+  transition: all 0.4s ease;
 }
 
 .container {
   width: 400px;
   background: var(--card-bg);
   padding: 25px;
-  border-radius: 24px;
-  border: 1px solid var(--border);
+  border-radius: 30px;
+  border: 2px solid var(--border);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
 }
 
-/* ensure the chart has space to render */
 .chart-container {
   position: relative;
-  margin: auto;
-  height: 250px;
+  height: 220px;
   width: 100%;
   margin-bottom: 20px;
 }
 
-.theme-btn {
-  background: transparent;
-  border: 1px solid var(--accent);
-  color: var(--accent);
-  padding: 5px 10px;
-  border-radius: 20px;
+/* Cute Buttons */
+.theme-btn, .clear-btn, .btn {
   cursor: pointer;
+  border: none;
+  font-weight: bold;
+  transition: 0.3s;
 }
+
+.theme-btn {
+  background: var(--accent);
+  color: white;
+  padding: 8px 15px;
+  border-radius: 50px;
+  font-size: 12px;
+  float: right;
+}
+
+.clear-btn {
+  background: var(--red);
+  color: white;
+  padding: 5px 12px;
+  border-radius: 50px;
+  font-size: 11px;
+}
+
+.btn {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+  color: white;
+  border-radius: 15px;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(156, 39, 176, 0.4); }
 
 .balance-pro {
   background: transparent;
@@ -66,23 +94,20 @@ body {
 }
 
 .inc-exp-container { display: flex; gap: 10px; margin: 20px 0; }
-.card { flex: 1; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 12px; text-align: center; }
-.money.plus { color: var(--green); }
-.money.minus { color: var(--red); }
+.card { flex: 1; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px; text-align: center; }
+
+.history-header { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; }
 
 .list li {
   background: var(--list-item);
   padding: 12px 12px 12px 40px;
-  border-radius: 10px;
+  border-radius: 12px;
   margin-bottom: 8px;
   position: relative;
   display: flex;
   justify-content: space-between;
-  border-right: 5px solid #bbb;
+  border-right: 5px solid var(--accent);
 }
-
-.list li.plus { border-right-color: var(--green); }
-.list li.minus { border-right-color: var(--red); }
 
 .delete-btn {
   position: absolute;
@@ -90,7 +115,7 @@ body {
   background: var(--red);
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   padding: 2px 8px;
   cursor: pointer;
   opacity: 0;
@@ -98,5 +123,13 @@ body {
 
 .list li:hover .delete-btn { opacity: 1; }
 
-.btn { width: 100%; padding: 12px; background: var(--accent); color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; }
-input, select { background: rgba(0,0,0,0.1); border: 1px solid var(--border); color: var(--text-main); padding: 10px; border-radius: 8px; margin: 5px 0; width: 100%; box-sizing: border-box; }
+input, select {
+  background: rgba(0,0,0,0.05);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  padding: 12px;
+  border-radius: 10px;
+  margin: 5px 0;
+  width: 100%;
+  box-sizing: border-box;
+}
