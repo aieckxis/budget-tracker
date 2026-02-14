@@ -3,14 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>budget tracker | pro version</title>
+    <title>budget tracker | aleckxis kate</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="container">
+        <div class="theme-switch-wrapper">
+            <button id="theme-toggle" class="theme-btn">🌙 toggle theme</button>
+        </div>
+
         <header>
-            <h2>hello, Aleckxis Kate! 👋</h2> <p>here is your financial overview</p>
+            <h2>hello, Aleckxis Kate! 👋</h2>
+            <p>here is your financial overview</p>
         </header>
 
         <div class="chart-container">
@@ -18,11 +23,11 @@
         </div>
 
         <div class="inc-exp-container">
-            <div>
+            <div class="card">
                 <h4>income</h4>
                 <p id="money-plus" class="money plus">+$0.00</p>
             </div>
-            <div>
+            <div class="card">
                 <h4>expenses</h4>
                 <p id="money-minus" class="money minus">-$0.00</p>
             </div>
